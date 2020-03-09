@@ -9,6 +9,7 @@ import {
   tap
 } from "rxjs/operators";
 import { SearchService } from './HelperService';
+import { SearchItem } from './search';
 
 @Component({
   selector: 'app-root',
@@ -20,10 +21,7 @@ export class AppComponent {
   searchField: FormControl;
   private results: Observable<SearchItem[]>;
   loading: boolean;
-  response: Observable<SearchItem[]>;
-
   constructor(private itunes: SearchService) { }
-
   ngOnInit() {
     this.searchField = new FormControl();
     this.results = this.searchField.valueChanges.pipe(
@@ -33,6 +31,5 @@ export class AppComponent {
       switchMap(term => this.itunes.search(term)),
       tap(_ => (this.loading = false))
     );
-    this.response = this.results;
   }
 }

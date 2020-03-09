@@ -1,4 +1,4 @@
-  class SearchItem {
+  export class SearchItem {
   constructor(
     public track: string,
     public artist: string,

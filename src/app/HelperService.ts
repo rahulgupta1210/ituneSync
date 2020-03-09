@@ -2,12 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/internal/operators/map';
+import { SearchItem } from './search';
 
 @Injectable()
 export class SearchService {
 
-  
-  //private results: Observable<SearchItem[]>;
   apiRoot: string = "https://itunes.apple.com/search";
   constructor(private http: HttpClient) {}
    
@@ -17,14 +16,13 @@ export class SearchService {
     return this.http.get(apiURL).pipe(
       map(res => {
         return res['results'].map(item => {
-          return item;
-          //  new SearchItem(
-          //   item.trackName,
-          //   item.artistName,
-          //   item.trackViewUrl,
-          //   item.artworkUrl30,
-          //   item.artistId
-          // );
+          return new SearchItem(
+            item.trackName,
+            item.artistName,
+            item.trackViewUrl,
+            item.artworkUrl30,
+            item.artistId
+          );
         });
       })
     );
